@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusAI — Your College Assistant</title>
+  <meta name="description" content="AI-Powered College Assistant for campus events, deadlines, clubs, and notices with zero hallucination.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-logo">🎓</div>
+        <div class="brand-text">
+          <span class="brand-name">Campus<span class="highlight">AI</span></span>
+          <span class="brand-sub">SRM College Assistant</span>
+        </div>
+      </div>
+
+
+
+      <div class="nav-actions">
+        <button id="btn-ingest-modal" class="btn btn-secondary">
+          <span>📥</span> Ingest Notice
+        </button>
+        <button id="btn-radar-toggle" class="btn btn-icon" title="Toggle Deadline Radar">
+          📡
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="app-layout">
+    
+    <!-- Left Main Panel: Chat & Discovery -->
+    <section class="main-panel">
+      
+      <!-- Hero Welcome Banner -->
+      <div class="hero-banner">
+        <h1>Your College, <span class="gradient-text">Simplified</span>.</h1>
+        <p>Ask anything about events, clubs, deadlines, fees, and opportunities. Zero hallucination guaranteed.</p>
+        
+        <!-- Smart Interest Filter Chips -->
+        <div class="interest-bar">
+          <span class="interest-label">Explore Interests:</span>
+          <button class="chip-interest" data-interest="ai">🤖 AI</button>
+          <button class="chip-interest" data-interest="coding">💻 Coding</button>
+          <button class="chip-interest" data-interest="design">🎨 Design</button>
+          <button class="chip-interest" data-interest="game">🎮 Games</button>
+          <button class="chip-interest" data-interest="research">🔬 Research</button>
+          <button class="chip-interest" data-interest="leadership">💼 Leadership</button>
+          <button class="chip-interest" data-interest="prize">💰 High Prize</button>
+        </div>
+      </div>
+
+      <!-- Preset Quick Demo Prompts -->
+      <div class="demo-prompts-bar">
+        <span class="demo-label">Try Asking:</span>
+        <div class="prompt-pills">
+          <button class="pill-prompt" data-query="What deadlines are coming up?">⚡ What deadlines are coming up?</button>
+          <button class="pill-prompt" data-query="I'm interested in AI and coding. What can I join?">🤖 I'm interested in AI and coding</button>
+          <button class="pill-prompt" data-query="Which event has the biggest prize?">💰 Which has the biggest prize?</button>
+          <button class="pill-prompt" data-query="Summarize EDGENOVA.">🚀 Summarize EDGENOVA</button>
+          <button class="pill-prompt" data-query="Can PG students participate in EDGENOVA?">🎓 Can PG students join EDGENOVA?</button>
+          <button class="pill-prompt" data-query="What is the SIGGRAPH deadline?" data-special="refusal-demo">🛡️ What is SIGGRAPH deadline?</button>
+          <button class="pill-prompt" data-query="when is microsoft ambassdor last date">✏️ Misspelled: microsoft ambassdor last date</button>
+          <button class="pill-prompt" data-query="Compare EDGENOVA and AI Game Jam">📊 Compare EDGENOVA & Game Jam</button>
+        </div>
+      </div>
+
+      <!-- Chat Stream Container -->
+      <div class="chat-container" id="chat-container">
+        <div class="chat-welcome-card" id="chat-welcome">
+          <div class="welcome-icon">💡</div>
+          <h3>How can CampusAI help you today?</h3>
+          <p>Click a suggested prompt above, select an interest tag, or type your custom query below.</p>
+        </div>
+      </div>
+
+      <!-- Input Box Footer -->
+      <div class="chat-input-wrapper">
+        <form id="chat-form" class="chat-form">
+          <input 
+            type="text" 
+            id="chat-input" 
+            placeholder="Ask CampusAI about hackathons, clubs, fees, deadlines..." 
+            autocomplete="off" 
+            required
+          />
+          <button type="submit" id="send-btn" class="btn btn-primary">
+            <span>Ask</span> ➤
+          </button>
+        </form>
+        <div class="input-footer-meta">
+          <span>📅 Date Context: <strong>19 August 2026</strong></span>
+          <span>🛡️ Zero Hallucination Mode Active</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Right Sidebar: Deadline Radar & Active Opportunities -->
+    <aside class="sidebar-panel" id="sidebar-panel">
+      
+      <!-- Deadline Radar Widget -->
+      <div class="sidebar-widget">
+        <div class="widget-header">
+          <div class="widget-title">
+            <span class="radar-live-icon">📡</span>
+            <h3>Deadline Radar</h3>
+          </div>
+          <span class="widget-badge" id="radar-total-count">5 Active</span>
+        </div>
+
+        <div class="radar-list" id="radar-list">
+          <div class="radar-loading">Loading deadline radar...</div>
+        </div>
+      </div>
+
+      <!-- Active Opportunities Quick Directory -->
+      <div class="sidebar-widget">
+        <div class="widget-header">
+          <h3>College Opportunities</h3>
+          <button id="btn-refresh-opps" class="btn-text">Refresh</button>
+        </div>
+        <div class="opp-cards-list" id="opp-cards-list">
+          <!-- Cards populated dynamically -->
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- Notice Ingestion Modal -->
+  <div class="modal-backdrop" id="ingest-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📥 Notice & Poster Ingestion Pipeline</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Add new college notices or poster data to update the local knowledge base instantly without modifying application code.</p>
+
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="tab-ocr">Raw Notice Text / OCR</button>
+          <button class="tab-btn" data-tab="tab-json">Structured JSON Record</button>
+        </div>
+
+        <div class="tab-content active" id="tab-ocr">
+          <label for="notice-raw-text">Paste Raw Notice Content / Extracted Poster OCR Text:</label>
+          <textarea id="notice-raw-text" rows="6" placeholder="Paste poster text here (e.g. Workshop on Web3 by CINTEL on Sep 1, 2026. Free entry...)"></textarea>
+        </div>
+
+        <div class="tab-content" id="tab-json">
+          <label for="notice-json-text">JSON Record (matching schema):</label>
+          <textarea id="notice-json-text" rows="6" placeholder='{ "id": "custom-event", "name": "Custom Workshop", "category": "workshop", "dates": ["2026-09-01"] }'></textarea>
+        </div>
+
+        <div class="ingest-status" id="ingest-status-msg"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" id="modal-submit-btn">Ingest into Knowledge Base</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

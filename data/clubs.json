@@ -1,0 +1,37 @@
+[
+  {
+    "id": "cintel-association",
+    "name": "CINTEL Association",
+    "type": "Technical Association",
+    "description": "Student association focusing on Computational Intelligence, Game Development, and AI competitions.",
+    "events": ["ai-game-jam"]
+  },
+  {
+    "id": "srmist-acm-sigai",
+    "name": "SRMIST ACM SIGAI",
+    "type": "Technical Chapter",
+    "description": "ACM Special Interest Group on Artificial Intelligence student chapter at SRMIST.",
+    "events": ["edgenova-26"]
+  },
+  {
+    "id": "tedx-srmist-club",
+    "name": "TEDxSRMIST",
+    "type": "Student Organization / Event Series",
+    "description": "Independent TEDx platform organizing inspirational talks, creative events, and curations at SRMIST.",
+    "events": ["tedx-srmist"]
+  },
+  {
+    "id": "siggraph-srm-ktr-club",
+    "name": "SIGGRAPH SRM KTR",
+    "type": "Technical & Creative Chapter",
+    "description": "ACM SIGGRAPH student chapter dedicated to computer graphics, interactive techniques, R&D, and web development.",
+    "events": ["siggraph-srm-ktr"]
+  },
+  {
+    "id": "microsoft-student-ambassadors-club",
+    "name": "Microsoft Student Ambassadors (SRM)",
+    "type": "Global Student Community Chapter",
+    "description": "Community of student leaders and tech enthusiasts empowering peers through Microsoft technologies, coding, and workshops.",
+    "events": ["microsoft-student-ambassadors-srm"]
+  }
+]
