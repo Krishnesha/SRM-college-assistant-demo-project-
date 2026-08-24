@@ -16,9 +16,25 @@ class RetrievalEngine:
         self.load_knowledge_base()
 
     def load_knowledge_base(self):
-        opp_path = os.path.join(self.data_dir, "opportunities.json")
-        notices_path = os.path.join(self.data_dir, "notices.json")
-        clubs_path = os.path.join(self.data_dir, "clubs.json")
+        possible_dirs = [
+            self.data_dir,
+            os.path.join(os.getcwd(), "data"),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "../../data")),
+            "/var/task/data"
+        ]
+        
+        target_dir = None
+        for p in possible_dirs:
+            if p and os.path.exists(os.path.join(p, "opportunities.json")):
+                target_dir = p
+                break
+        
+        if not target_dir:
+            target_dir = self.data_dir
+
+        opp_path = os.path.join(target_dir, "opportunities.json")
+        notices_path = os.path.join(target_dir, "notices.json")
+        clubs_path = os.path.join(target_dir, "clubs.json")
 
         if os.path.exists(opp_path):
             with open(opp_path, "r", encoding="utf-8") as f:

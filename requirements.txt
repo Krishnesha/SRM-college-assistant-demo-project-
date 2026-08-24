@@ -1,0 +1,2 @@
+# CampusAI - Python Standard Library Dependencies
+# No external pip packages required
